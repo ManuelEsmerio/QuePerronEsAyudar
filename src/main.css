@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --text-primary: theme('colors.gray.900');
+        --text-secondary: theme('colors.gray.700');
+    }
+
+    .dark {
+        --text-primary: theme('colors.gray.100');
+        --text-secondary: theme('colors.gray.300');
+    }
+
+    body {
+        @apply text-text-primary bg-white dark:bg-gray-900 transition-colors duration-300;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-text-primary;
+    }
+
+    p,
+    span,
+    li {
+        @apply text-text-secondary;
+    }
+}
