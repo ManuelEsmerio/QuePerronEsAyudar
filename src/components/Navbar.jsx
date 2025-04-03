@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useDarkMode } from '../contexts/DarkModeContext' // Custom hook (ver abajo)
+import { useState } from 'react'
+import { navLinks } from '../database'
 
 export default function Navbar() {
   const { isDarkMode } = useDarkMode()
-
-  console.log('isDarkMode:', isDarkMode)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-colors duration-300 ${
@@ -35,32 +36,25 @@ export default function Navbar() {
                 ? 'text-purple-300' 
                 : 'text-amber-700'
             }`}>
-              Patitas Felices
+              #QuePerrónEsAyudar
             </span>
           </Link>
 
           {/* Menú principal */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              to="/about" 
-              className={`transition-colors font-medium ${
-                isDarkMode 
-                  ? 'text-gray-300 hover:text-purple-400' 
-                  : 'text-gray-700 hover:text-amber-600'
-              }`}
-            >
-              Sobre Nosotros
-            </Link>
-            <Link 
-              to="/adoptions" 
-              className={`transition-colors font-medium ${
-                isDarkMode 
-                  ? 'text-gray-300 hover:text-purple-400' 
-                  : 'text-gray-700 hover:text-amber-600'
-              }`}
-            >
-              Adopciones
-            </Link>
+            {navLinks.map((link) => (
+              <Link 
+                key={link.path}
+                to={link.path} 
+                className={`transition-colors font-medium ${
+                  isDarkMode 
+                    ? 'text-gray-300 hover:text-purple-400' 
+                    : 'text-gray-700 hover:text-amber-600'
+                }`}
+              >
+                {link.text}
+              </Link>
+            ))}
             <Link 
               to="/contact" 
               className={`px-4 py-2 rounded-lg transition-colors font-medium ${
@@ -73,21 +67,24 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Botón móvil */}
-          <button className="md:hidden">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              strokeWidth={1.5} 
-              stroke="currentColor" 
-              className={`w-8 h-8 ${
-                isDarkMode ? 'stroke-purple-400' : 'stroke-amber-600'
+          {/* Botón hamburguesa */}
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`p-2 rounded-md md:hidden ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:bg-gray-700' 
+                  : 'text-gray-700 hover:bg-gray-100'
               }`}
+              aria-label="Toggle menu"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
         </div>
       </div>
     </header>

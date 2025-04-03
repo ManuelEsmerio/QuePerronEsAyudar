@@ -1,6 +1,8 @@
+import { donations } from "../database"
+
 const HowToHelp = () => {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Cómo Ayudar</h1>
       
       {/* Donaciones monetarias */}
@@ -49,44 +51,7 @@ const HowToHelp = () => {
         </p>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              category: "Alimento",
-              items: [
-                "Croquetas para perro adulto",
-                "Croquetas para cachorro",
-                "Alimento para gato",
-                "Latas de alimento húmedo"
-              ]
-            },
-            {
-              category: "Medicinas",
-              items: [
-                "Desparasitantes",
-                "Antipulgas",
-                "Vacunas",
-                "Medicamentos varios"
-              ]
-            },
-            {
-              category: "Accesorios",
-              items: [
-                "Correas y collares",
-                "Camas y cobijas",
-                "Platos y bebederos",
-                "Juguetes"
-              ]
-            },
-            {
-              category: "Limpieza",
-              items: [
-                "Cloro",
-                "Detergente",
-                "Escobas y trapeadores",
-                "Bolsas para basura"
-              ]
-            }
-          ].map((group, index) => (
+          {donations.map((group, index) => (
             <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm">
               <h3 className="text-xl font-bold mb-4 dark:text-white">{group.category}</h3>
               <ul className="space-y-2">
@@ -105,7 +70,7 @@ const HowToHelp = () => {
       </section>
       
       {/* Voluntariado */}
-      <section>
+      <section id="volunteer">
         <h2 className="text-3xl font-bold mb-6 dark:text-white">Voluntariado</h2>
         <div className="grid md:grid-cols-2 gap-8">
           <div>

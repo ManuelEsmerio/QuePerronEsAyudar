@@ -31,7 +31,7 @@ const Contact = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Contacto</h1>
       
       <div className="grid md:grid-cols-2 gap-12">
@@ -131,9 +131,9 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold mb-1 dark:text-white">Dirección</h3>
-                <p className="text-gray-600 dark:text-gray-300">Calle de los Animales #123, Col. Refugio, Ciudad, CP 12345</p>
+                <p className="text-gray-600 dark:text-gray-300">Calle Santos Degollado 6A, Col. Centro, Tequila, Jalisco, CP 46400</p>
                 <a 
-                  href="https://maps.google.com" 
+                  href="https://maps.app.goo.gl/eTGxhdPHuynY1Tab7" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-blue-600 dark:text-blue-400 hover:underline mt-2 inline-block"
@@ -256,7 +256,7 @@ const Contact = () => {
       {/* Mapa de ubicación */}
       <div className="mt-16 rounded-xl overflow-hidden shadow-lg">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.8881488071915!2d-99.1776906845337!3d19.42702074610794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20%C3%81ngel%20de%20la%20Independencia!5e0!3m2!1ses-419!2smx!4v1622674543127!5m2!1ses-419!2smx" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.730763232042!2d-103.8387485826049!3d20.88289955692491!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842615c2011975d9%3A0xe02ae152ff26d91b!2sSantos%20Degollado%206A%2C%20Centro%2C%2046400%20Tequila%2C%20Jal.!5e0!3m2!1ses!2smx!4v1743630556542!5m2!1ses!2smx" 
           width="100%" 
           height="450" 
           style={{border:0}}

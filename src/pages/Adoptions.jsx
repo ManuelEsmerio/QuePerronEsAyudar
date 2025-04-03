@@ -1,73 +1,10 @@
 import { useState } from 'react'
 import AnimalCard from '../components/AnimalCard'
+import { animals, stepsAdoption } from '../database'
 
 const Adoptions = () => {
   const [showForm, setShowForm] = useState(false)
-  const [selectedAnimal, setSelectedAnimal] = useState(null)
-
-  // Datos de ejemplo - en una app real vendrían de una API
-  const animals = [
-    {
-      id: 1,
-      name: "Max",
-      breed: "Mezcla",
-      age: "2 años",
-      gender: "Macho",
-      size: "Mediano",
-      description: "Max es un perro juguetón y cariñoso que adora los paseos y los niños. Está esterilizado y con todas sus vacunas al día.",
-      image: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=600&auto=format"
-    },
-    {
-      id: 2,
-      name: "Luna",
-      breed: "Siamés",
-      age: "1 año",
-      gender: "Hembra",
-      size: "Pequeño",
-      description: "Luna es una gata tranquila que disfruta de los mimos y las siestas al sol. Ideal para apartamentos.",
-      image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format"
-    },
-    {
-      id: 3,
-      name: "Rocky",
-      breed: "Bulldog",
-      age: "4 años",
-      gender: "Macho",
-      size: "Grande",
-      description: "Rocky es un perro tranquilo que busca un hogar donde pueda descansar y recibir amor. Necesita un patio.",
-      image: "https://images.unsplash.com/photo-1534361960057-19889db9621e?w=600&auto=format"
-    },
-    {
-      id: 4,
-      name: "Bella",
-      breed: "Labrador",
-      age: "3 años",
-      gender: "Hembra",
-      size: "Grande",
-      description: "Bella es una perra activa que adora jugar y nadar. Perfecta para familias deportistas.",
-      image: "/assets/images/dog3.jpg"
-    },
-    {
-      id: 5,
-      name: "Simón",
-      breed: "Mestizo",
-      age: "5 meses",
-      gender: "Macho",
-      size: "Pequeño",
-      description: "Simón es un cachorro lleno de energía que está buscando una familia paciente para crecer juntos.",
-      image: "/assets/images/dog4.jpg"
-    },
-    {
-      id: 6,
-      name: "Mía",
-      breed: "Persa",
-      age: "2 años",
-      gender: "Hembra",
-      size: "Mediano",
-      description: "Mía es una gata elegante que disfruta de la tranquilidad y los mimos en su propio tiempo.",
-      image: "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=600&auto=format"
-    }
-  ]
+  const [selectedAnimal, setSelectedAnimal] = useState(null)  
 
   const handleAdoptClick = (animal) => {
     setSelectedAnimal(animal)
@@ -75,35 +12,14 @@ const Adoptions = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Adopciones</h1>
       
       {/* Proceso de adopción */}
       <section className="mb-16 bg-blue-50 dark:bg-gray-800 p-8 rounded-xl">
         <h2 className="text-3xl font-bold mb-6 dark:text-white">Nuestro Proceso de Adopción</h2>
         <div className="grid md:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Conoce al animal",
-              description: "Visita nuestro refugio o agenda una videollamada para conocer a tu posible nuevo compañero."
-            },
-            {
-              step: "2",
-              title: "Llena la solicitud",
-              description: "Completa nuestro formulario de adopción para que conozcamos más de ti."
-            },
-            {
-              step: "3",
-              title: "Visita al hogar",
-              description: "Realizamos una visita a tu hogar para asegurarnos que es el lugar adecuado."
-            },
-            {
-              step: "4",
-              title: "Firma de contrato",
-              description: "Firmamos un contrato de adopción donde te comprometes a cuidar del animal."
-            }
-          ].map((step, index) => (
+          {stepsAdoption.map((step, index) => (
             <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm">
               <div className="w-12 h-12 bg-blue-600 dark:bg-blue-800 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
                 {step.step}
@@ -115,10 +31,45 @@ const Adoptions = () => {
         </div>
       </section>
 
-      {/* Galería de animales */}
+      {/* Sección con efecto parallax */}
+      <section className="relative mb-16 rounded-xl overflow-hidden min-h-[400px] flex items-center">
+        {/* Capa de fondo con parallax */}
+        <div 
+          className="absolute inset-0 bg-fixed bg-cover bg-center z-0"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)'
+          }}
+        >
+          {/* Overlay para mejor legibilidad */}
+          <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
+        </div>
+        
+        {/* Contenido sobre el parallax */}
+        <div className="relative z-10 w-full p-8 text-white">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Carta Responsiva de Adopción</h2>
+            <p className="text-lg mb-8 text-white/90">Descarga nuestra carta responsiva de adopción para conocer los términos y condiciones.</p>
+          </div>
+          
+          {/* Botón circular flotante */}
+          <div className="absolute right-8 bottom-8">
+            <a
+              href="/doc/Carta_Responsiva_de_Adpcion.pdf"
+              download="Carta_Responsiva_de_Adpcion.pdf"
+              className="rounded-full bg-red-600 hover:bg-red-700 text-white font-bold p-5 shadow-xl transition-all transform hover:scale-110 flex items-center justify-center w-16 h-16 animate-bounce"
+              aria-label="Descargar carta responsiva de adopción"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M8 12l4 4m0 0l4-4m-4 4V4"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Galería de animales (sección original) */}
       <section className="mb-16">
         <h2 className="text-3xl font-bold mb-8 dark:text-white">Nuestros Animales en Adopción</h2>
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {animals.map(animal => (
             <AnimalCard key={animal.id} animal={animal} />

@@ -29,3 +29,18 @@ html.dark {
 .prose p {
     @apply mb-4;
 }
+
+@keyframes text {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.animate-text {
+    background-size: 200% auto;
+    animation: text 3s linear infinite;
+}

@@ -8,6 +8,7 @@ import Blog from './pages/Blog'
 import Contact from './pages/Contact'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import AppLayout from './AppLayout'
+import ArticlePage from './pages/blog/[slug]'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/blog',
         element: <Blog />
+      },
+      {
+        path: '/blog/:slug',
+        element: <ArticlePage />
       },
       {
         path: '/contact',

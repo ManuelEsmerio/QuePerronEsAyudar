@@ -1,6 +1,11 @@
+import CarruselMembers from "../components/CarruselMembers"
+import CarruselTeam from "../components/CarruselTeam"
+import { teamMembers } from "../database"
+
 const About = () => {
+
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Sobre Nosotros</h1>
       
       {/* Historia */}
@@ -20,7 +25,7 @@ const About = () => {
           </div>
           <div className="rounded-xl overflow-hidden">
             <img 
-              src="/assets/images/history.jpg" 
+              src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&auto=format&fit=crop" 
               alt="Fundadores del refugio" 
               className="w-full h-auto"
             />
@@ -47,44 +52,10 @@ const About = () => {
       </section>
 
       {/* Equipo */}
-      <section>
-        <h2 className="text-3xl font-bold mb-8 dark:text-white">Nuestro Equipo</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            {
-              name: "María González",
-              role: "Fundadora y Directora",
-              bio: "Veterinaria con 15 años de experiencia en rescate animal.",
-              image: "/assets/images/team1.jpg"
-            },
-            {
-              name: "Carlos Méndez",
-              role: "Coordinador de Rescates",
-              bio: "Especialista en comportamiento animal con 10 años en el refugio.",
-              image: "/assets/images/team2.jpg"
-            },
-            {
-              name: "Laura Sánchez",
-              role: "Coordinadora de Adopciones",
-              bio: "Encargada de encontrar los hogares perfectos para nuestros rescatados.",
-              image: "/assets/images/team3.jpg"
-            }
-          ].map((member, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-              <img 
-                src={member.image} 
-                alt={member.name} 
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold dark:text-white">{member.name}</h3>
-                <p className="text-blue-600 dark:text-blue-400 mb-2">{member.role}</p>
-                <p className="text-gray-700 dark:text-gray-300">{member.bio}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <CarruselTeam />
+
+      {/* Colaboradores */}
+      <CarruselMembers />
     </div>
   )
 }
