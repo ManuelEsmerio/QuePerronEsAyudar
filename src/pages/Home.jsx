@@ -27,33 +27,79 @@ const Home = () => {
       </div>
 
       {/* Sección de bienvenida */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">Bienvenidos a Que Perrón es Ayudar</h2>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-lg mb-4 dark:text-gray-200">
-              Qué Perrón es Ayudar es una iniciativa ciudadana dedicada a educar y sensibilizar a la comunidad sobre el bienestar y protección de perros y gatos en Tequila, Jalisco. Nuestro objetivo es reducir el abandono y la crueldad animal a través de campañas de concienciación, rescate, atención médica y promoción de la adopción responsable.
+     <section className="mb-24 py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-lg">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 dark:text-white relative">
+          <span className="relative inline-block">
+            Bienvenidos a Que Perrón es Ayudar
+          </span>
+        </h2>
+        
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <p className="text-lg md:text-xl leading-relaxed text-gray-700 dark:text-gray-300">
+              <span className="text-blue-600 dark:text-yellow-400 font-semibold">Qué Perrón es Ayudar</span> es una iniciativa ciudadana que nace del amor y respeto por los animales, con la misión de educar y sensibilizar a la comunidad sobre el bienestar y protección de perros y gatos en situación de calle en 
+              <span className="text-blue-600 dark:text-yellow-400 font-semibold"> Tequila, Jalisco</span>. Creemos que cada ser vivo merece una vida digna, libre de maltrato y abandono, por lo que trabajamos incansablemente para generar un impacto positivo en nuestra comunidad a través de:
             </p>
-            <p className="text-lg mb-6 dark:text-gray-200">
-              Desde nuestra fundación, hemos ayudado a animales a encontrar 
-              un hogar donde reciben el amor y cuidado que merecen.
-            </p>
-            <Link 
-              to="/about" 
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-            >
-              Conoce más
-            </Link>
+            
+            <ul className="space-y-3 text-gray-600 dark:text-gray-400">
+              <li className="flex items-start">
+                <span className="text-yellow-500 mr-2">✓</span>
+                Campañas de concienciación
+              </li>
+              <li className="flex items-start">
+                <span className="text-yellow-500 mr-2">✓</span>
+                Rescate y atención médica
+              </li>
+              <li className="flex items-start">
+                <span className="text-yellow-500 mr-2">✓</span>
+                Promoción de adopción responsable
+              </li>
+            </ul>
+            
+            <div className="bg-blue-100 dark:bg-gray-700 p-6 rounded-xl border-l-4 border-blue-500 dark:border-yellow-400">
+              <h3 className="text-2xl font-bold mb-3 text-blue-800 dark:text-yellow-400">Nuestro impacto</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Desde nuestra fundación, hemos logrado cambiar la vida de muchos perros y gatos, ofreciéndoles una segunda oportunidad para ser parte de una familia que los ame y cuide como merecen. Cada adopción concretada, cada animal rescatado y cada persona sensibilizada nos motiva a seguir adelante con nuestra labor.
+                Sin embargo, aún queda mucho por hacer. El abandono y maltrato animal siguen siendo un problema que requiere la colaboración de toda la sociedad.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link 
+                to="/about" 
+                className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-blue-500/30"
+              >
+                Conoce más
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+              
+              <Link 
+                to="/how-to-help#donations" 
+                className="inline-flex items-center bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-yellow-500/30"
+              >
+                ¡Colabora!
+              </Link>
+            </div>
           </div>
-          <div className="rounded-xl overflow-hidden">
-            <img 
-              src="/images/refugio-1.jpg" 
-              alt="Voluntarios con animales" 
-              className="w-full h-auto"
-            />
+          
+          <div className="relative">
+            <div className="rounded-2xl overflow-hidden shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
+              <img 
+                src="/images/refugio-1.jpg" 
+                alt="Voluntarios con animales" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-6 -left-6 bg-yellow-400 dark:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-lg shadow-lg">
+              +200 vidas cambiadas
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Llamado a la acción */}
       <section className="bg-blue-600 dark:bg-blue-800 text-white p-8 rounded-xl mb-16">
@@ -65,7 +111,7 @@ const Home = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
-              to="/how-to-help" 
+              to="/how-to-help#sectionDonations" 
               className="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-8 rounded-full"
             >
               Donar Ahora

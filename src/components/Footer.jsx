@@ -33,7 +33,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="container mx-auto mt-8 pt-4 border-t border-gray-700 text-center">
-        <p>© {new Date().getFullYear()} Refugio Animal. Todos los derechos reservados.</p>
+        <p>© {new Date().getFullYear()} #QuePerronEsAyudar. Todos los derechos reservados.</p>
       </div>
     </footer>
   )

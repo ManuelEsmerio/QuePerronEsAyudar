@@ -1,12 +1,42 @@
+import { useState } from "react";
 import { donations } from "../database"
+import ShareIcon from "../assets/share.svg?react";
 
 const HowToHelp = () => {
+
+  const [copied, setCopied] = useState(false);
+  
+  const bankData = `Banco: BBVA
+    Titular: Qué Perrón es Ayudar A.C.
+    Cuenta: 4152 3134 5678 9010
+    CLABE: 0123 4567 8901 2345 67`;
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(bankData)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000); // Reset after 3 seconds
+      })
+      .catch(err => {
+        console.error('Error al copiar: ', err);
+        // Fallback para navegadores antiguos
+        const textarea = document.createElement('textarea');
+        textarea.value = bankData;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      });
+  };
+
   return (
     <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Cómo Ayudar</h1>
       
       {/* Donaciones monetarias */}
-      <section className="mb-16">
+      <section className="mb-16" id="sectionDonations">
         <h2 className="text-3xl font-bold mb-6 dark:text-white">Donaciones Monetarias</h2>
         <p className="text-lg mb-6 dark:text-gray-200">
           Tu contribución económica nos permite cubrir los gastos veterinarios, alimento, medicinas 
@@ -34,12 +64,34 @@ const HowToHelp = () => {
               </ul>
             </div>
           </div>
-          <button className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6z" />
-            </svg>
-            Compartir datos bancarios
-          </button>
+          <div className="relative">
+            <button
+              onClick={copyToClipboard}
+              className={`mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg inline-flex items-center transition-all duration-200 ${
+                copied ? 'bg-green-600 hover:bg-green-700' : ''
+              }`}
+            >
+              {copied ? (
+                <>
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  ¡Copiado!
+                </>
+              ) : (
+                <>
+                  <ShareIcon />
+                  Compartir datos bancarios
+                </>
+              )}
+            </button>
+          
+            {copied && (
+              <div className="absolute -bottom-10 left-0 bg-gray-800 text-white text-sm py-1 px-3 rounded-md whitespace-nowrap">
+                Datos copiados al portapapeles
+              </div>
+            )}
+          </div>
         </div>
       </section>
       
