@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useScrollToHash from '../hooks/useScrollToHash'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +30,8 @@ const Contact = () => {
       message: ''
     })
   }
+
+  useScrollToHash();
 
   return (
     <div className="w-full min-h-screen px-4 py-6">

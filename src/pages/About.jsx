@@ -1,22 +1,14 @@
 import { lazy, Suspense } from 'react';
-import CarruselMembers from "../components/CarruselMembers"
-import CarruselTeam from "../components/CarruselTeam"
-import { teamMembers } from "../database"
 
-// Componente optimizado para imágenes
-const OptimizedImage = ({ src, alt, className }) => (
-  <img
-    src={src}
-    alt={alt}
-    className={className}
-    loading="lazy"
-    decoding="async"
-    width="800"  // Tamaño aproximado
-    height="600" // Tamaño aproximado
-  />
-);
+import OptimizedImage from "../components/OptimizedImage"
+import useScrollToHash from '../hooks/useScrollToHash';
+const CarruselMembers = lazy(() => import("../components/CarruselMembers"));
+const CarruselTeam = lazy(() => import("../components/CarruselTeam"));
 
 const About = () => {
+
+  useScrollToHash();
+
   return (
     <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Sobre Nosotros</h1>

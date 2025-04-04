@@ -1,4 +1,8 @@
+import useScrollToHash from "../hooks/useScrollToHash";
+
 const PrivacyPolicy = () => {
+  useScrollToHash();
+
   return (
     <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Aviso de Privacidad</h1>

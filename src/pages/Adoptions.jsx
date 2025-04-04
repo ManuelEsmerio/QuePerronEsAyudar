@@ -1,9 +1,11 @@
-import { lazy, Suspense, useState } from 'react'
-import AnimalCard from '../components/AnimalCard'
+import { lazy, useState } from 'react'
 import { animals, stepsAdoption } from '../database'
-import AdoptionForm from '../components/AdoptionForm'
-import AdoptionStep from '../components/AdoptionStep'
-import ParallaxBackground from '../components/ParallaxBackground'
+import useScrollToHash from '../hooks/useScrollToHash'
+
+const AnimalCard = lazy(() => import('../components/AnimalCard'))
+const AdoptionForm = lazy(() => import('../components/AdoptionForm'))
+const AdoptionStep = lazy(() => import('../components/AdoptionStep'))
+const ParallaxBackground = lazy(() => import('../components/ParallaxBackground'))
 
 const Adoptions = () => {
   const [showForm, setShowForm] = useState(false)
@@ -13,6 +15,8 @@ const Adoptions = () => {
     setSelectedAnimal(animal)
     setShowForm(true)
   }
+
+  useScrollToHash();
 
   return (
     <div className="w-full min-h-screen px-4 py-6">
@@ -56,7 +60,7 @@ const Adoptions = () => {
       </section>
 
       {/* Galería de animales */}
-      <section className="mb-16">
+      <section className="mb-16" id='sectionAdoptionAnimals'>
         <h2 className="text-3xl font-bold mb-8 dark:text-white">Nuestros Animales en Adopción</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {animals.map(animal => (

@@ -1,16 +1,32 @@
 import { Link } from 'react-router-dom'
-import AnimalCard from '../components/AnimalCard'
+import { lazy, useState } from 'react';
+
 import { animals } from '../database'
 
+const AnimalCard = lazy(() => import('../components/AnimalCard'))
+const AdoptionForm = lazy(() => import('../components/AdoptionForm'))
+
+import OptimizedImage from '../components/OptimizedImage'
+import useScrollToHash from '../hooks/useScrollToHash';
+
 const Home = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState(null)  
+
+  const handleAdoptClick = (animal) => {
+    setSelectedAnimal(animal)
+    setShowForm(true)
+  }
+
+  useScrollToHash();
+
   return (
     <div className="w-full min-h-screen px-4 py-6">
       {/* Banner principal */}
       <div className="relative rounded-xl overflow-hidden mb-12 h-96">
-        <img 
+        <OptimizedImage 
           src="/images/banner.jpg" 
-          alt="Animales del refugio" 
-          className="w-full h-full object-cover"
+          alt="Animales del refugio"
         />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="text-center text-white p-6 max-w-2xl">
@@ -87,10 +103,9 @@ const Home = () => {
           
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
-              <img 
+              <OptimizedImage 
                 src="/images/refugio-1.jpg" 
-                alt="Voluntarios con animales" 
-                className="w-full h-auto object-cover"
+                alt="Voluntarios con animales"
               />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-yellow-400 dark:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-lg shadow-lg">
@@ -131,8 +146,12 @@ const Home = () => {
         <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">Ellos buscan un hogar</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Estos datos vendrían de una API o archivo JSON */}
-          {animals.slice(0, 3).map(animal => (
-            <AnimalCard key={animal.id} animal={animal} />
+          {animals.slice(0,3).map(animal => (
+            <AnimalCard 
+              key={animal.id} 
+              animal={animal} 
+              onAdoptClick={handleAdoptClick}
+            />
           ))}
         </div>
         {animals.length > 3 && (
@@ -146,6 +165,14 @@ const Home = () => {
           </div>
         )}
       </section>
+
+      {/* Formulario de adopción */}
+      {showForm && (
+        <AdoptionForm 
+          animal={selectedAnimal} 
+          onClose={() => setShowForm(false)} 
+        />
+      )}
     </div>
   )
 }

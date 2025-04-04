@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { donations } from "../database"
-import ShareIcon from "../assets/share.svg?react";
+import useScrollToHash from "../hooks/useScrollToHash";
+
+const ShareIcon = lazy(() => import("../assets/share.svg?react"));
 
 const HowToHelp = () => {
 
@@ -30,6 +32,8 @@ const HowToHelp = () => {
         setTimeout(() => setCopied(false), 3000);
       });
   };
+
+  useScrollToHash();
 
   return (
     <div className="w-full min-h-screen px-4 py-6">
@@ -96,7 +100,7 @@ const HowToHelp = () => {
       </section>
       
       {/* Donaciones en especie */}
-      <section className="mb-16">
+      <section className="mb-16" id="sectionInKindDonations">
         <h2 className="text-3xl font-bold mb-6 dark:text-white">Donaciones en Especie</h2>
         <p className="text-lg mb-6 dark:text-gray-200">
           También puedes ayudarnos donando productos que necesitamos para el cuidado diario de los animales.
