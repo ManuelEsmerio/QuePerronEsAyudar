@@ -1,9 +1,22 @@
+import { lazy, Suspense } from 'react';
 import CarruselMembers from "../components/CarruselMembers"
 import CarruselTeam from "../components/CarruselTeam"
 import { teamMembers } from "../database"
 
-const About = () => {
+// Componente optimizado para imágenes
+const OptimizedImage = ({ src, alt, className }) => (
+  <img
+    src={src}
+    alt={alt}
+    className={className}
+    loading="lazy"
+    decoding="async"
+    width="800"  // Tamaño aproximado
+    height="600" // Tamaño aproximado
+  />
+);
 
+const About = () => {
   return (
     <div className="w-full min-h-screen px-4 py-6">
       <h1 className="text-4xl font-bold text-center mb-12 dark:text-white">Sobre Nosotros</h1>
@@ -24,10 +37,10 @@ const About = () => {
             </p>
           </div>
           <div className="rounded-xl overflow-hidden">
-            <img 
+            <OptimizedImage 
               src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&auto=format&fit=crop" 
               alt="Fundadores del refugio" 
-              className="w-full h-auto"
+              className="w-full h-auto object-cover"
             />
           </div>
         </div>
@@ -52,10 +65,14 @@ const About = () => {
       </section>
 
       {/* Equipo */}
-      <CarruselTeam />
+      <Suspense fallback={<div className="h-64 flex items-center justify-center">Cargando equipo...</div>}>
+        <CarruselTeam />
+      </Suspense>
 
       {/* Colaboradores */}
-      <CarruselMembers />
+      <Suspense fallback={<div className="h-64 flex items-center justify-center">Cargando colaboradores...</div>}>
+        <CarruselMembers />
+      </Suspense>
     </div>
   )
 }

@@ -1,14 +1,15 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import Home from './pages/Home'
-import About from './pages/About'
-import Adoptions from './pages/Adoptions'
-import HowToHelp from './pages/HowToHelp'
-import SuccessStories from './pages/SuccessStories'
-import Blog from './pages/Blog'
-import Contact from './pages/Contact'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import AppLayout from './AppLayout'
-import ArticlePage from './pages/blog/[slug]'
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Adoptions = lazy(() =>  import('./pages/Adoptions'));
+const HowToHelp = lazy(() => import('./pages/HowToHelp'));
+const SuccessStories = lazy(() => import('./pages/SuccessStories'));
+const Blog = lazy(() => import('./pages/Blog'));
+const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const AppLayout = lazy(() => import('./AppLayout'));
+const ArticlePage = lazy(() => import('./pages/blog/[slug]'));
 
 const router = createBrowserRouter([
   {

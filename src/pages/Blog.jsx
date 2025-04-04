@@ -1,5 +1,11 @@
+import { lazy, Suspense, memo } from 'react';
 import ArticleCard from "../components/ArticleCard"
 import { blogPosts, events } from "../database"
+
+// Carga diferida de iconos
+const ClockIcon = lazy(() => import("../assets/clock.svg?react"));
+const LocationIcon = lazy(() => import("../assets/location.svg?react"));
+const CalendarIcon = lazy(() => import("../assets/calendar.svg?react"));
 
 const Blog = () => {
   return (
@@ -12,7 +18,11 @@ const Blog = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map(article => (
-            <ArticleCard key={article.id} article={article} className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow" />
+            <ArticleCard 
+              key={article.id} 
+              article={article} 
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow" 
+            />
           ))}
         </div>
       </section>
@@ -23,44 +33,7 @@ const Blog = () => {
         
         <div className="space-y-6">
           {events.map(event => (
-            <div key={event.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-              <div className="md:flex">
-                <div className="md:w-1/3">
-                  <img 
-                    src={event.image} 
-                    alt={event.title} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6 md:w-2/3">
-                  <h3 className="text-2xl font-bold mb-2 dark:text-white">{event.title}</h3>
-                  <div className="flex flex-wrap gap-4 mb-4">
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                      </svg>
-                      <span className="dark:text-gray-300">{event.date}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                      </svg>
-                      <span className="dark:text-gray-300">{event.time}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
-                      <span className="dark:text-gray-300">{event.location}</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{event.description}</p>
-                  <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    Más información
-                  </button>
-                </div>
-              </div>
-            </div>
+            <EventCard key={event.id} event={event} />
           ))}
         </div>
       </section>
@@ -68,4 +41,45 @@ const Blog = () => {
   )
 }
 
-export default Blog
+// Componente separado para Eventos con carga diferida de iconos
+const EventCard = memo(({ event }) => (
+  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+    <div className="md:flex">
+      <div className="md:w-1/3">
+        <img 
+          src={event.image} 
+          alt={event.title} 
+          className="w-full h-full object-cover"
+          loading="lazy" // Carga diferida de imágenes
+          width="400"  // Definir tamaño aproximado
+          height="300" // Definir tamaño aproximado
+        />
+      </div>
+      <div className="p-6 md:w-2/3">
+        <h3 className="text-2xl font-bold mb-2 dark:text-white">{event.title}</h3>
+        <div className="flex flex-wrap gap-4 mb-4">
+          <Suspense fallback={<span>...</span>}>
+            <div className="flex items-center">
+              <CalendarIcon />
+              <span className="dark:text-gray-300">{event.date}</span>
+            </div>
+            <div className="flex items-center">
+              <ClockIcon />
+              <span className="dark:text-gray-300">{event.time}</span>
+            </div>
+            <div className="flex items-center">
+              <LocationIcon />
+              <span className="dark:text-gray-300">{event.location}</span>
+            </div>
+          </Suspense>
+        </div>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">{event.description}</p>
+        <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Más información
+        </button>
+      </div>
+    </div>
+  </div>
+));
+
+export default Blog;

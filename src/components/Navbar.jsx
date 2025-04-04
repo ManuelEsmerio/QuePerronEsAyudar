@@ -6,10 +6,22 @@ import { navLinks } from '../database'
 export default function Navbar() {
   const { isDarkMode } = useDarkMode()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
   const menuRef = useRef(null)
   const buttonRef = useRef(null)
 
-  // Cerrar menú al hacer clic fuera o en un enlace
+  // Efecto mejorado para el scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      setHasScrolled(scrollTop > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Cerrar menú al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target) && 
@@ -19,27 +31,30 @@ export default function Navbar() {
     }
 
     document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   // Bloquear scroll cuando el menú está abierto
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto'
   }, [isMenuOpen])
 
   return (
-    <header className={`fixed top-0 w-full z-[1000] ${
-      isDarkMode 
-        ? 'bg-gradient-to-b from-gray-900 to-gray-800 shadow-gray-900/50' 
-        : 'bg-gradient-to-b from-white to-gray-50 shadow-gray-200/50'
-    } shadow-lg`}>
-      <div className="container mx-auto px-6 py-4">
+    <header className={`fixed top-0 w-full z-[1000] transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.4,1)] ${
+      hasScrolled 
+        ? isDarkMode 
+          ? 'bg-gray-900/95 shadow-lg backdrop-blur-sm' 
+          : 'bg-white/95 shadow-lg backdrop-blur-sm'
+        : `backdrop-blur-sm ${
+            isDarkMode 
+              ? 'bg-gray-900/20 shadow-none' 
+              : 'bg-white/20 shadow-none'
+          }`
+    } ${isMenuOpen ? (isDarkMode ? 'bg-gray-900' : 'bg-white') : ''}`}>
+
+      <div className={`container mx-auto px-6 py-3 transition-all duration-300 ${
+        hasScrolled ? 'py-3' : 'py-4'
+      }`}>
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link 
@@ -48,40 +63,49 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
           >
             <div className={`mr-3 rounded-full flex items-center justify-center 
-              w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18
-              transition-all duration-300 group-hover:scale-105 ${
+              w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16
+              transition-all duration-500 group-hover:scale-105 ${
               isDarkMode 
                 ? 'bg-purple-600 text-white' 
                 : 'bg-amber-400 text-amber-900'
-            }`}>
+              } ${
+                hasScrolled ? 'scale-95' : 'scale-100'
+              }`}>
               <img 
                 src="/images/logo.webp" 
                 alt="Logo Qué Perrón es Ayudar" 
                 className="w-full h-auto object-cover rounded-full"
               />
             </div>
-            <span className={`text-2xl font-bold transition-colors ${
+            <span className={`text-2xl font-bold transition-all duration-500 ${
               isDarkMode 
                 ? 'text-purple-300 group-hover:text-purple-400' 
                 : 'text-amber-700 group-hover:text-amber-600'
-            }`}>
+              } ${
+                hasScrolled ? 'scale-95' : 'scale-100'
+              }`}>
               #QuePerrónEsAyudar
             </span>
           </Link>
 
           {/* Menú principal (desktop) */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link 
                 key={link.path}
                 to={link.path} 
-                className={`transition-all duration-300 font-medium py-2 px-1 border-b-2 ${
+                className={`relative transition-all duration-300 font-medium py-2 px-1 group ${
                   isDarkMode 
-                    ? 'text-gray-300 hover:text-purple-400 border-transparent hover:border-purple-400' 
-                    : 'text-gray-700 hover:text-amber-600 border-transparent hover:border-amber-500'
+                    ? 'text-gray-300 hover:text-purple-400' 
+                    : 'text-gray-700 hover:text-amber-600'
                 }`}
               >
                 {link.text}
+                <span className={`absolute bottom-0 left-0 h-0.5 transition-all duration-500 ease-out ${
+                  isDarkMode 
+                    ? 'bg-purple-400 group-hover:w-full' 
+                    : 'bg-amber-500 group-hover:w-full'
+                } ${hasScrolled ? 'w-0' : 'w-0'} group-hover:w-full`}></span>
               </Link>
             ))}
             <Link 
@@ -90,13 +114,15 @@ export default function Navbar() {
                 isDarkMode 
                   ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-purple-900/50' 
                   : 'bg-amber-500 hover:bg-amber-600 text-white shadow-amber-500/30'
-              } shadow-md`}
+              } shadow-md transform hover:shadow-lg ${
+                hasScrolled ? 'scale-95 hover:scale-100' : 'scale-100'
+              }`}
             >
               Contacto
             </Link>
           </nav>
 
-          {/* Botón hamburguesa (mobile) */}
+          {/* Botón hamburguesa (mobile) - RESTAURADO */}
           <button 
             ref={buttonRef}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -122,7 +148,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Menú móvil */}
+        {/* Menú móvil - RESTAURADO */}
         <div 
           ref={menuRef}
           className={`md:hidden fixed top-20 left-0 w-full h-[calc(100vh-5rem)] ${

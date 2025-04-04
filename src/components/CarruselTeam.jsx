@@ -28,7 +28,7 @@ const CarruselTeam = () => {
         className="w-full"
       >
         {teamMembers.map((member, index) => (
-          <SwiperSlide key={index} className="flex justify-center h-full">
+          <SwiperSlide key={index} className="flex justify-center h-full mb-20">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg flex flex-col h-full">
               <img src={member.image} alt={member.name} className="w-full h-64 object-cover" />
               <div className="p-6">
@@ -41,7 +41,7 @@ const CarruselTeam = () => {
         ))}
       </Swiper>
 
-        <div className='flex justify-center mt-8'>
+        <div className='flex justify-center'>
             <Link 
                 type="submit" 
                 className="mt-6 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 

@@ -1,5 +1,10 @@
 import { useDarkMode } from '../contexts/DarkModeContext'
 
+// SVG imports for dark and light mode icons
+// Note: Ensure you have the correct path to your SVG files
+import DarkModeIcon from "../assets/dark.svg?react";
+import LightModeIcon from "../assets/light.svg?react";
+
 const DarkModeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
@@ -14,23 +19,9 @@ const DarkModeToggle = () => {
       aria-label={isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
     >
       {isDarkMode ? (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
+        <DarkModeIcon />
       ) : (
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 24 24"
-          className="h-6 w-6"
-          fill="currentColor" // Usa el mismo color que el stroke
-        >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" 
-          />
-        </svg>
+        <LightModeIcon />
       )}
     </button>
   )

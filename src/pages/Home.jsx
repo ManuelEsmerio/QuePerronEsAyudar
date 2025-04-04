@@ -78,7 +78,7 @@ const Home = () => {
               
               <Link 
                 to="/how-to-help#donations" 
-                className="inline-flex items-center bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-yellow-500/30"
+                className="inline-flex items-center bg-yellow-400 dark:bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-yellow-500/30"
               >
                 ¡Colabora!
               </Link>
