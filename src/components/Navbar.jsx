@@ -7,8 +7,22 @@ export default function Navbar() {
   const { isDarkMode } = useDarkMode()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const menuRef = useRef(null)
   const buttonRef = useRef(null)
+
+  // Efecto para detectar modales abiertos
+  useEffect(() => {
+    const handler = () => {
+      setModalIsOpen(document.querySelectorAll('[data-modal-open="true"]').length > 0);
+    };
+    
+    // Observar cambios en el DOM
+    const observer = new MutationObserver(handler);
+    observer.observe(document.body, { subtree: true, attributes: true });
+    
+    return () => observer.disconnect();
+  }, []);
 
   // Efecto mejorado para el scroll
   useEffect(() => {
@@ -40,8 +54,8 @@ export default function Navbar() {
   }, [isMenuOpen])
 
   return (
-    <header className={`fixed top-0 w-full z-[1000] transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.4,1)] ${
-      hasScrolled 
+    <header className={`fixed top-0 w-full z-[999] transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.4,1)] ${
+      hasScrolled || isMenuOpen || modalIsOpen
         ? isDarkMode 
           ? 'bg-gray-900/95 shadow-lg backdrop-blur-sm' 
           : 'bg-white/95 shadow-lg backdrop-blur-sm'
