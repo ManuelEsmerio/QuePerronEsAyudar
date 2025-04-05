@@ -108,7 +108,7 @@ export const animals = [
       gender: "Macho",
       size: "Mediano",
       description: "Max es un perro juguetón y cariñoso que adora los paseos y los niños. Está esterilizado y con todas sus vacunas al día.",
-      image: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=600&auto=format"
+      image: "/images/perro-rescatado.webp"
     },
     {
       id: 2,
@@ -118,7 +118,7 @@ export const animals = [
       gender: "Hembra",
       size: "Pequeño",
       description: "Luna es una gata tranquila que disfruta de los mimos y las siestas al sol. Ideal para apartamentos.",
-      image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format"
+      image: "/images/gato-rescatado.webp"
     },
     {
       id: 3,
@@ -128,7 +128,7 @@ export const animals = [
       gender: "Macho",
       size: "Grande",
       description: "Rocky es un perro tranquilo que busca un hogar donde pueda descansar y recibir amor. Necesita un patio.",
-      image: "https://images.unsplash.com/photo-1534361960057-19889db9621e?w=600&auto=format"
+      image: "/images/perro-rescatado-2.webp"
     },
     {
       id: 4,
@@ -138,7 +138,7 @@ export const animals = [
       gender: "Hembra",
       size: "Grande",
       description: "Bella es una perra activa que adora jugar y nadar. Perfecta para familias deportistas.",
-      image: "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=600&auto=format"
+      image: "/images/perro-rescatado-3.webp"
     },
     {
       id: 5,
@@ -148,7 +148,7 @@ export const animals = [
       gender: "Macho",
       size: "Pequeño",
       description: "Simón es un cachorro lleno de energía que está buscando una familia paciente para crecer juntos.",
-      image: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=600&auto=format"
+      image: "/images/perro-rescatado-4.webp"
     },
     {
       id: 6,
@@ -158,7 +158,7 @@ export const animals = [
       gender: "Hembra",
       size: "Mediano",
       description: "Mía es una gata elegante que disfruta de la tranquilidad y los mimos en su propio tiempo.",
-      image: "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=600&auto=format"
+      image: "/images/gato-rescatado-2.webp"
     }
 ]
 

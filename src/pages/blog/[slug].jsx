@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { blogPosts } from '../../database';
+import useScrollToHash from '../../hooks/useScrollToHash';
 
 export default function ArticlePage() {
   const { slug } = useParams();
@@ -8,6 +9,8 @@ export default function ArticlePage() {
   const relatedArticles = blogPosts.filter(
     post => post.slug !== slug && post.category === article?.category
   ).slice(0, 2);
+
+  useScrollToHash();
 
   if (!article) {
     return (
